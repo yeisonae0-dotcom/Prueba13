@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Feliz Cumpleaños Mi Loquita Hermosa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .font-title {
+            font-family: 'Playfair Display', serif;
+        }
+        .font-impact {
+            font-family: 'Anton', sans-serif;
+            letter-spacing: 0.12em;
+        }
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 10;
+        }
+        #topConfettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 50;
+        }
+        @keyframes zoomPanelIn {
+            0% { opacity: 0; transform: scale(0.85); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes zoomPanelOut {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.85); }
+        }
+        .panel-zoom-in {
+            animation: zoomPanelIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .panel-zoom-out {
+            animation: zoomPanelOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes wifiStutter {
+            0% { width: 5%; opacity: 0.5; }
+            20% { width: 22%; opacity: 0.8; }
+            30% { width: 16%; opacity: 0.4; }
+            50% { width: 55%; opacity: 0.9; }
+            65% { width: 45%; opacity: 0.6; }
+            85% { width: 82%; opacity: 1; }
+            92% { width: 75%; opacity: 0.7; }
+            100% { width: 100%; opacity: 1; }
+        }
+        .wifi-loader-12s {
+            animation: wifiStutter 12s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .wifi-loader-3s {
+            animation: wifiStutter 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .bunting-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 110px;
+            pointer-events: none;
+            z-index: 25;
+            overflow: hidden;
+        }
+        .glow-pink {
+            box-shadow: 0 0 30px rgba(236, 72, 153, 0.6);
+            transition: all 0.3s ease;
+        }
+        .glow-pink:hover {
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.9);
+            transform: scale(1.02);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pop-in {
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes zoomInOutNumber {
+            0% { transform: scale(0.4); opacity: 0; filter: blur(12px); }
+            25% { transform: scale(1.15); opacity: 1; filter: blur(0px); }
+            75% { transform: scale(1); opacity: 1; filter: blur(0px); }
+            100% { transform: scale(1.4); opacity: 0; filter: blur(12px); }
+        }
+        .countdown-zoom-anim-number {
+            animation: zoomInOutNumber 1s cubic-bezier(0.38, 0.00, 0.24, 1.00) forwards;
+        }
+        @keyframes zoomInOutWord {
+            0% { transform: scale(0.4); opacity: 0; filter: blur(12px); }
+            20% { transform: scale(1.12); opacity: 1; filter: blur(0px); }
+            80% { transform: scale(1); opacity: 1; filter: blur(0px); }
+            100% { transform: scale(1.35); opacity: 0; filter: blur(12px); }
+        }
+        .countdown-zoom-anim-word {
+            animation: zoomInOutWord 1.8s cubic-bezier(0.38, 0.00, 0.24, 1.00) forwards;
+        }
+        .neon-impact-kimberly {
+            color: #ffffff;
+            text-shadow: 0 0 5px #fff,
+                         0 0 10px #ff69b4,
+                         0 0 20px #ff69b4,
+                         0 0 35px #ff1493,
+                         0 0 55px #ff1493;
+        }
+        @keyframes bounceInUp {
+            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+            60% { opacity: 1; transform: translateY(-8px) scale(1.02); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-bounce-in {
+            animation: bounceInUp 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+    </style>
+</head>
+<body class="relative flex flex-col items-center justify-center min-h-[100dvh] p-4 sm:p-6 overflow-y-auto">
+
+    <!-- Speaker Mute/Unmute Toggle Button Top-Right -->
+    <button id="musicToggleBtn" onclick="toggleMusicMute()" class="fixed top-3 right-3 sm:top-4 sm:right-4 z-50 liquid-glass p-3 rounded-full text-pink-300 hover:text-white transition-all duration-300 flex items-center justify-center shadow-lg border border-cyan-400/50 cursor-pointer" title="Silenciar / Activar Música">
+        <i id="musicIcon" class="fa-solid fa-volume-high text-lg"></i>
+    </button>
+
+    <canvas id="particleCanvas"></canvas>
+    <canvas id="topConfettiCanvas"></canvas>
+
+    <!-- Double Bunting Garland Banner -->
+    <div id="buntingGarland" class="bunting-container hidden">
+        <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1200 110">
+            <!-- First row (higher) -->
+            <path d="M0,0 Q300,45 600,0 Q900,45 1200,0" fill="none" stroke="rgba(255, 182, 193, 0.3)" stroke-width="1.5" stroke-dasharray="3,3"/>
+            <polygon points="150,12 180,12 165,36" fill="#93c5fd" />
+            <polygon points="270,18 300,18 285,42" fill="#f472b6" />
+            <polygon points="390,22 420,22 405,46" fill="#fde047" />
+            <polygon points="780,22 810,22 795,46" fill="#c084fc" />
+            <polygon points="900,18 930,18 915,42" fill="#fb7185" />
+            <polygon points="1020,12 1050,12 1035,36" fill="#38bdf8" />
+
+            <!-- Second row (lower) -->
+            <path d="M0,20 Q300,70 600,20 Q900,70 1200,20" fill="none" stroke="rgba(255, 182, 193, 0.45)" stroke-width="2" stroke-dasharray="4,4"/>
+            <path d="M0,20 Q300,70 600,20" fill="none" stroke="rgba(255, 192, 203, 0.6)" stroke-width="1.5"/>
+            <path d="M600,20 Q900,70 1200,20" fill="none" stroke="rgba(255, 192, 203, 0.6)" stroke-width="1.5"/>
+            
+            <polygon points="120,32 150,32 135,58" fill="#f472b6" />
+            <polygon points="210,38 240,38 225,64" fill="#fde047" />
+            <polygon points="300,44 330,44 315,70" fill="#c084fc" />
+            <polygon points="390,50 420,50 405,76" fill="#fb7185" />
+            
+            <polygon points="780,50 810,50 795,76" fill="#93c5fd" />
+            <polygon points="870,44 900,44 885,70" fill="#f472b6" />
+            <polygon points="960,38 990,38 975,64" fill="#fde047" />
+            <polygon points="1050,32 1080,32 1065,58" fill="#c084fc" />
+        </svg>
+        
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none pt-3">
+            <span class="font-impact text-2xl sm:text-3xl md:text-4xl tracking-widest neon-impact-kimberly px-5 py-1 bg-black/70 rounded-2xl border border-pink-400/60 shadow-lg">
+                KIMBERLY
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Welcome Card -->
+    <main id="mainContainer" class="relative z-20 w-full max-w-md sm:max-w-xl mx-auto flex flex-col items-center justify-center my-auto px-4 py-6">
+        <div id="glassCard" class="liquid-glass w-full rounded-3xl p-5 sm:p-8 md:p-10 text-center flex flex-col items-center fade-in">
+            <h1 class="font-title text-xl sm:text-2xl md:text-4xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-300 to-pink-500 mb-4 leading-snug">
+                FELIZ CUMPLEAÑOS MI LOQUITA HERMOSA
+            </h1>
+
+            <p class="text-xs sm:text-sm text-pink-200/90 font-medium tracking-wide mb-4 italic bg-black/40 p-3 rounded-xl border border-pink-500/30">
+                ✨ Pon la música para que todo sea mejor y perdón si tiene anuncios
+            </p>
+
+            <div class="w-full bg-black/50 border border-pink-500/20 rounded-2xl p-3 sm:p-5 mb-5 shadow-inner flex flex-col items-center">
+                <div class="w-full aspect-video rounded-xl overflow-hidden border border-pink-500/30 bg-black shadow-lg">
+                    <iframe id="youtubePlayer" class="w-full h-full" src="https://www.youtube.com/embed/x1h0HiUFNXs?autoplay=1&enablejsapi=1" title="Música de Cumpleaños" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div id="loaderSection" class="w-full flex flex-col items-center space-y-2.5">
+                <div class="w-3/4 sm:w-1/2 bg-white/10 rounded-full h-2.5 p-0.5 border border-pink-500/30 overflow-hidden">
+                    <div class="wifi-loader-12s bg-gradient-to-r from-pink-500 to-rose-400 h-full rounded-full"></div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span id="loadStatusText" class="text-xs text-pink-300/70 tracking-widest uppercase">Cargando sorpresa...</span>
+                    <span id="timerCountdown" class="text-xs font-bold text-pink-300 bg-black/50 px-2 py-0.5 rounded-md border border-pink-500/30">12s</span>
+                </div>
+            </div>
+
+            <div id="buttonContainer" class="w-full hidden">
+                <button onclick="startCountdownSequence()" class="w-full py-3.5 sm:py-4 px-6 rounded-2xl bg-gradient-to-r from-pink-600 via-rose-500 to-pink-500 text-white font-semibold text-base sm:text-lg glow-pink flex items-center justify-center space-x-3 cursor-pointer">
+                    <span>COMENZAR</span>
+                    <i class="fa-solid fa-heart text-white animate-pulse"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Countdown & Words Sequence Screen -->
+    <div id="sequenceScreen" class="hidden fixed inset-0 z-30 flex flex-col items-center justify-center p-4 sm:p-6 text-center pointer-events-none">
+        <div id="sequenceText" class="font-title text-8xl sm:text-[14rem] md:text-[20rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 px-2 leading-none drop-shadow-[0_20px_50px_rgba(244,114,182,0.9)] text-center">
+            5
+        </div>
+    </div>
+
+    <!-- Panels Wrapper -->
+    <div id="panelsWrapper" class="relative z-20 w-full max-w-md sm:max-w-xl mx-auto flex flex-col items-center justify-center my-auto px-4 py-6 hidden">
+        <div id="panelsContainer" class="w-full">
+            
+            <!-- Panel 1/5 -->
+            <div id="panel-1" class="panel-item liquid-glass w-full rounded-3xl p-5 sm:p-8 md:p-10 text-center flex flex-col items-center mt-6">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mb-3 rounded-full overflow-hidden border-2 border-cyan-400 shadow-lg bg-black/40 flex items-center justify-center p-1">
+                    <img src="https://static.vecteezy.com/system/resources/previews/065/674/444/non_2x/snoopy-with-heart-free-vector.jpg" alt="Snoopy tierno" class="w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/100x100/ff69b4/ffffff?text=Snoopy'">
+                </div>
+                <span class="text-xs uppercase tracking-widest text-pink-400 mb-2 font-semibold">1 / 5</span>
+                <h2 class="font-title text-xl sm:text-2xl md:text-3xl font-bold text-pink-200 mb-3 sm:mb-4">Lo mucho que te quiero</h2>
+                <div class="text-pink-100/90 text-xs sm:text-sm md:text-base leading-relaxed space-y-3 mb-5 sm:mb-6 italic bg-black/30 p-4 sm:p-6 rounded-2xl border border-cyan-400/40">
+                    <p>"Eres esa persona maravillosa que ilumina cada uno de mis días con tu sonrisa, tu locura hermosa y la ternura inmensa que hay inmersa en tu corazón."</p>
+                </div>
+                <div class="panel-loader-wrapper w-full flex flex-col items-center space-y-3">
+                    <div class="w-3/4 sm:w-1/2 bg-white/10 rounded-full h-2.5 p-0.5 border border-pink-500/30 overflow-hidden">
+                        <div class="wifi-loader-3s bg-gradient-to-r from-pink-500 to-rose-400 h-full rounded-full"></div>
+                    </div>
+                    <button onclick="nextPanel(2)" class="panel-next-btn hidden py-3 px-8 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-500 text-white font-semibold text-sm glow-pink flex items-center space-x-2 cursor-pointer">
+                        <span>Siguiente</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel 2/5 -->
+            <div id="panel-2" class="panel-item liquid-glass w-full rounded-3xl p-5 sm:p-8 md:p-10 text-center flex flex-col items-center mt-6 hidden">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mb-3 rounded-full overflow-hidden border-2 border-cyan-400 shadow-lg bg-black/40 flex items-center justify-center p-1">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq10V7NRunUQ478UvWCWJ-48A-z_euI2Ygaw&s" alt="Snoopy 2" class="w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/100x100/ff69b4/ffffff?text=Snoopy'">
+                </div>
+                <span class="text-xs uppercase tracking-widest text-pink-400 mb-2 font-semibold">2 / 5</span>
+                <h2 class="font-title text-xl sm:text-2xl md:text-3xl font-bold text-pink-200 mb-3 sm:mb-4">UN POEMA DE CARIÑO</h2>
+                <div class="text-pink-100/90 text-xs sm:text-sm md:text-base leading-relaxed space-y-3 mb-5 sm:mb-6 italic bg-black/30 p-4 sm:p-6 rounded-2xl border border-cyan-400/40">
+                    <p>Bajo el cielo estrellado y su fulgor,<br>brillas tú con encanto y gran amor.<br>Mi loquita hermosa, mi dulce ilusión,<br>hoy te entrego entera mi alma y corazón.</p>
+                </div>
+                <div class="panel-loader-wrapper w-full flex flex-col items-center space-y-3">
+                    <div class="w-3/4 sm:w-1/2 bg-white/10 rounded-full h-2.5 p-0.5 border border-pink-500/30 overflow-hidden">
+                        <div class="wifi-loader-3s bg-gradient-to-r from-pink-500 to-rose-400 h-full rounded-full"></div>
+                    </div>
+                    <button onclick="nextPanel(3)" class="panel-next-btn hidden py-3 px-8 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-500 text-white font-semibold text-sm glow-pink flex items-center space-x-2 cursor-pointer">
+                        <span>Siguiente</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel 3/5 -->
+            <div id="panel-3" class="panel-item liquid-glass w-full rounded-3xl p-5 sm:p-8 md:p-10 text-center flex flex-col items-center mt-6 hidden">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mb-3 rounded-full overflow-hidden border-2 border-cyan-400 shadow-lg bg-black/40 flex items-center justify-center p-1">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPWkWd4MEq1UQ5Rs_fT7JYHBpdsdxZDr1w0I_stsMlEw&s=10" alt="Snoopy 3" class="w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/100x100/ff69b4/ffffff?text=Snoopy'">
+                </div>
+                <span class="text-xs uppercase tracking-widest text-pink-400 mb-2 font-semibold">3 / 5</span>
+                <h2 class="font-title text-xl sm:text-2xl md:text-3xl font-bold text-pink-200 mb-3 sm:mb-4">Lo mucho que te quiero</h2>
+                <div class="text-pink-100/90 text-xs sm:text-sm md:text-base leading-relaxed space-y-3 mb-5 sm:mb-6 bg-black/30 p-4 sm:p-6 rounded-2xl border border-cyan-400/40">
+                    <p>Quiero que sepas que cada instante a tu lado es un regalo invaluable. Tu forma de ser le da color a mi mundo y no cambiaría por nada cada risa y cada momento compartido contigo.</p>
+                </div>
+                <div class="panel-loader-wrapper w-full flex flex-col items-center space-y-3">
+                    <div class="w-3/4 sm:w-1/2 bg-white/10 rounded-full h-2.5 p-0.5 border border-pink-500/30 overflow-hidden">
+                        <div class="wifi-loader-3s bg-gradient-to-r from-pink-500 to-rose-400 h-full rounded-full"></div>
+                    </div>
+                    <button onclick="nextPanel(4)" class="panel-next-btn hidden py-3 px-8 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-500 text-white font-semibold text-sm glow-pink flex items-center space-x-2 cursor-pointer">
+                        <span>Siguiente</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel 4/5 -->
+            <div id="panel-4" class="panel-item liquid-glass w-full rounded-3xl p-5 sm:p-8 md:p-10 text-center flex flex-col items-center mt-6 hidden">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mb-3 rounded-full overflow-hidden border-2 border-cyan-400 shadow-lg bg-black/40 flex items-center justify-center p-1">
+                    <img src="https://srv.latostadora.com/canvas3D.dll/snoopy-y-woodstock-abrazados--i:1356231838285901356232116324;c:18382859;s:D_G4;w:700;h:520;k:68c934ba0d814abe59d93fe040214dd7.jpg" alt="Snoopy 4" class="w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/100x100/ff69b4/ffffff?text=Snoopy'">
+                </div>
+                <span class="text-xs uppercase tracking-widest text-pink-400 mb-2 font-semibold">4 / 5</span>
+                <h2 class="font-title text-xl sm:text-2xl md:text-3xl font-bold text-pink-200 mb-3 sm:mb-4">Este día espero lo disfrutes</h2>
+                <div class="text-pink-100/90 text-xs sm:text-sm md:text-base leading-relaxed space-y-3 mb-5 sm:mb-6 italic bg-black/30 p-4 sm:p-6 rounded-2xl border border-cyan-400/40">
+                    <p>Que este nuevo año de vida te traiga tantas alegrías como las que regalas a quienes te rodean. Que cada meta se haga realidad y que tu hermosa sonrisa jamás se apague.</p>
+                </div>
+                <div class="panel-loader-wrapper w-full flex flex-col items-center space-y-3">
+                    <div class="w-3/4 sm:w-1/2 bg-white/10 rounded-full h-2.5 p-0.5 border border-pink-500/30 overflow-hidden">
+                        <div class="wifi-loader-3s bg-gradient-to-r from-pink-500 to-rose-400 h-full rounded-full"></div>
+                    </div>
+                    <button onclick="nextPanel(5)" class="panel-next-btn hidden py-3.5 px-6 sm:px-8 rounded-2xl bg-gradient-to-r from-pink-600 via-rose-500 to-pink-500 text-white font-semibold text-sm sm:text-base glow-pink flex items-center space-x-2 cursor-pointer">
+                        <span>CELEBREMOS JUNTOS</span>
+                        <i class="fa-solid fa-gift"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel 5/5 -->
+            <div id="panel-5" class="panel-item liquid-glass w-full rounded-3xl p-5 sm:p-8 md:p-10 text-center flex flex-col items-center mt-6 hidden">
+                <div class="w-24 h-24 sm:w-28 sm:h-28 mb-3 rounded-full overflow-hidden border-2 border-cyan-400 shadow-xl bg-black/40 flex items-center justify-center p-1">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6a0-UMAsLk8J4SEPyrH8-xmJnvQ0MtkRjn0eWrQ-Czw&s=10" alt="Snoopy 5" class="w-full h-full object-cover rounded-full" onerror="this.src='https://placehold.co/100x100/ff69b4/ffffff?text=Snoopy'">
+                </div>
+
+                <span class="text-xs uppercase tracking-widest text-pink-400 mb-2 font-semibold">5 / 5</span>
+                
+                <h2 id="finalTitle" class="font-title text-xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-300 to-pink-500 mb-3 opacity-0">
+                    FÉLIZ CUMPLEAÑOS MI LOQUITA HERMOSA
+                </h2>
+                
+                <div id="finalEmojis" class="flex justify-center space-x-1.5 sm:space-x-3 text-2xl sm:text-3xl mb-3 py-1 opacity-0">
+                    <span>🥳</span><span>🎉</span><span>🎂</span><span>🎁</span><span>🎈</span><span>🎊</span><span>🥳</span>
+                </div>
+
+                <div id="finalPoem" class="text-pink-100 text-xs sm:text-sm md:text-base leading-relaxed mb-5 bg-black/40 p-4 sm:p-6 rounded-2xl border border-cyan-400/40 shadow-inner opacity-0">
+                    <p>te quiero mi loquita hermosa espero pases un muy feliz cumpleaños y que sigas cumpliendo muchos años más que tengas un muy feliz cumpleaños</p>
+                </div>
+
+                <div id="replayContainer" class="w-full hidden fade-in">
+                    <button onclick="resetExperience()" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-pink-600 via-rose-500 to-pink-500 text-white font-semibold text-base sm:text-lg glow-pink flex items-center justify-center space-x-3 cursor-pointer">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>ver otra vez</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const topCanvas = document.getElementById('topConfettiCanvas');
+        const topCtx = topCanvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+        topCanvas.width = width;
+        topCanvas.height = height;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            topCanvas.width = width;
+            topCanvas.height = height;
+        });
+
+        // Music Mute / Unmute Toggle Functionality
+        let isMuted = false;
+        function toggleMusicMute() {
+            isMuted = !isMuted;
+            const musicIcon = document.getElementById('musicIcon');
+            const iframe = document.getElementById('youtubePlayer');
+            
+            if (isMuted) {
+                musicIcon.className = 'fa-solid fa-volume-xmark text-lg';
+                iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'mute', args: '' }), '*');
+            } else {
+                musicIcon.className = 'fa-solid fa-volume-high text-lg';
+                iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'unMute', args: '' }), '*');
+            }
+        }
+
+        const particles = [];
+
+        class FallingElement {
+            constructor(preloaded = false) {
+                this.reset(preloaded);
+            }
+
+            reset(preloaded = false) {
+                this.x = Math.random() * width;
+                this.y = preloaded ? Math.random() * height : Math.random() * -height;
+                this.size = Math.random() * 9 + 6;
+                this.speedY = Math.random() * 0.8 + 0.35;
+                this.speedX = Math.random() * 0.6 - 0.3;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 2 - 1;
+                this.opacity = Math.random() * 0.5 + 0.25;
+                this.type = Math.random() > 0.4 ? 'flower' : 'heart';
+                this.color = Math.random() > 0.3 ? '#ffb6c1' : '#ff69b4';
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.y * 0.02) * 0.3;
+                this.rotation += this.rotationSpeed;
+
+                if (this.y > height + 20) {
+                    this.reset(false);
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.globalAlpha = Math.max(0, this.opacity);
+                ctx.fillStyle = this.color;
+
+                if (this.type === 'heart') {
+                    ctx.beginPath();
+                    let s = this.size * 0.04;
+                    ctx.moveTo(0, s * 3);
+                    ctx.bezierCurveTo(-s * 5, -s * 2, -s * 10, s * 5, 0, s * 12);
+                    ctx.bezierCurveTo(s * 10, s * 5, s * 5, -s * 2, 0, s * 3);
+                    ctx.fill();
+                } else {
+                    ctx.beginPath();
+                    for (let i = 0; i < 5; i++) {
+                        ctx.rotate((Math.PI * 2) / 5);
+                        ctx.beginPath();
+                        ctx.arc(0, this.size * 0.3, this.size * 0.22, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size * 0.18, 0, Math.PI * 2);
+                    ctx.fillStyle = '#fff0f5';
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            }
+        }
+
+        const activeConfetti = [];
+
+        class ConfettiPiece {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 7 + 5;
+                this.speedY = Math.random() * -7 - 3;
+                this.speedX = (Math.random() - 0.5) * 8;
+                this.gravity = 0.35;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 10 - 5;
+                this.opacity = 1;
+                this.color = ['#ff69b4', '#ff1493', '#ffb6c1', '#fde047', '#93c5fd', '#c084fc', '#ffffff'][Math.floor(Math.random() * 7)];
+            }
+
+            update() {
+                this.speedY += this.gravity;
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.rotation += this.rotationSpeed;
+                this.opacity -= 0.03;
+            }
+
+            draw() {
+                if (this.opacity <= 0) return;
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.globalAlpha = Math.max(0, this.opacity);
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 0.6);
+                ctx.restore();
+            }
+        }
+
+        class TopRainConfetti {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = -10;
+                this.size = Math.random() * 8 + 4;
+                this.speedY = Math.random() * 4 + 3;
+                this.speedX = (Math.random() - 0.5) * 2;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 6 - 3;
+                this.opacity = 1;
+                this.color = ['#ff69b4', '#ff1493', '#ffb6c1', '#fde047', '#93c5fd', '#c084fc', '#ffffff'][Math.floor(Math.random() * 7)];
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.y * 0.03) * 0.5;
+                this.rotation += this.rotationSpeed;
+                this.opacity -= 0.007;
+            }
+
+            draw() {
+                if (this.opacity <= 0) return;
+                topCtx.save();
+                topCtx.translate(this.x, this.y);
+                topCtx.rotate((this.rotation * Math.PI) / 180);
+                topCtx.globalAlpha = Math.max(0, this.opacity);
+                topCtx.fillStyle = this.color;
+                topCtx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 0.6);
+                topCtx.restore();
+            }
+        }
+
+        const topRainPieces = [];
+        let isTopRainActive = false;
+
+        function triggerTopRain2Seconds() {
+            topRainPieces.length = 0;
+            isTopRainActive = true;
+
+            const spawnInterval = setInterval(() => {
+                for (let i = 0; i < 5; i++) {
+                    topRainPieces.push(new TopRainConfetti());
+                }
+            }, 50);
+
+            setTimeout(() => {
+                clearInterval(spawnInterval);
+            }, 2000);
+
+            setTimeout(() => {
+                isTopRainActive = false;
+                topRainPieces.length = 0;
+            }, 4000);
+        }
+
+        function triggerMiniConfetti() {
+            const cx = width / 2;
+            const cy = height / 2;
+            for (let i = 0; i < 20; i++) {
+                activeConfetti.push(new ConfettiPiece(cx + (Math.random() - 0.5) * 60, cy + (Math.random() - 0.5) * 30));
+            }
+        }
+
+        for (let i = 0; i < 55; i++) {
+            particles.push(new FallingElement(true));
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            topCtx.clearRect(0, 0, width, height);
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            for (let i = activeConfetti.length - 1; i >= 0; i--) {
+                const c = activeConfetti[i];
+                c.update();
+                c.draw();
+                if (c.opacity <= 0 || c.y > height + 20) {
+                    activeConfetti.splice(i, 1);
+                }
+            }
+
+            if (isTopRainActive) {
+                for (let i = topRainPieces.length - 1; i >= 0; i--) {
+                    const tr = topRainPieces[i];
+                    tr.update();
+                    tr.draw();
+                    if (tr.opacity <= 0 || tr.y > height + 20) {
+                        topRainPieces.splice(i, 1);
+                    }
+                }
+            }
+
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // 12-Second Initial Loading Sequence with 12s to 0s Countdown
+        window.addEventListener('DOMContentLoaded', () => {
+            const loaderSection = document.getElementById('loaderSection');
+            const buttonContainer = document.getElementById('buttonContainer');
+            const loadStatusText = document.getElementById('loadStatusText');
+            const timerCountdown = document.getElementById('timerCountdown');
+
+            let timeLeft = 12;
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft >= 0) {
+                    timerCountdown.innerText = timeLeft + 's';
+                }
+            }, 1000);
+
+            setTimeout(() => {
+                clearInterval(timerInterval);
+                loadStatusText.innerText = '¡Listo!';
+                timerCountdown.innerText = '0s';
+                setTimeout(() => {
+                    loaderSection.style.opacity = '0';
+                    loaderSection.style.transition = 'opacity 0.4s ease';
+                    setTimeout(() => {
+                        loaderSection.classList.add('hidden');
+                        buttonContainer.classList.remove('hidden');
+                        buttonContainer.classList.add('fade-in');
+                    }, 400);
+                }, 300);
+            }, 12000);
+        });
+
+        const sequenceItems = [
+            { text: '5', duration: 1000, animClass: 'countdown-zoom-anim-number', sizeClass: 'text-8xl sm:text-[14rem] md:text-[20rem]', colorClass: 'text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 drop-shadow-[0_20px_50px_rgba(244,114,182,0.9)]' },
+            { text: '4', duration: 1000, animClass: 'countdown-zoom-anim-number', sizeClass: 'text-8xl sm:text-[14rem] md:text-[20rem]', colorClass: 'text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 drop-shadow-[0_20px_50px_rgba(244,114,182,0.9)]' },
+            { text: '3', duration: 1000, animClass: 'countdown-zoom-anim-number', sizeClass: 'text-8xl sm:text-[14rem] md:text-[20rem]', colorClass: 'text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 drop-shadow-[0_20px_50px_rgba(244,114,182,0.9)]' },
+            { text: '2', duration: 1000, animClass: 'countdown-zoom-anim-number', sizeClass: 'text-8xl sm:text-[14rem] md:text-[20rem]', colorClass: 'text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 drop-shadow-[0_20px_50px_rgba(244,114,182,0.9)]' },
+            { text: '1', duration: 1000, animClass: 'countdown-zoom-anim-number', sizeClass: 'text-8xl sm:text-[14rem] md:text-[20rem]', colorClass: 'text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-400 to-pink-500 drop-shadow-[0_20px_50px_rgba(244,114,182,0.9)]' },
+            { text: 'FELIZ', duration: 1800, animClass: 'countdown-zoom-anim-word', sizeClass: 'text-5xl sm:text-7xl md:text-9xl', colorClass: 'text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-fuchsia-300 to-purple-500 drop-shadow-[0_20px_50px_rgba(168,85,247,0.8)]' },
+            { text: 'CUMPLEAÑOS', duration: 1800, animClass: 'countdown-zoom-anim-word', sizeClass: 'text-4xl sm:text-6xl md:text-8xl', colorClass: 'text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-fuchsia-300 to-purple-500 drop-shadow-[0_20px_50px_rgba(168,85,247,0.8)]' },
+            { text: 'MI', duration: 1800, animClass: 'countdown-zoom-anim-word', sizeClass: 'text-5xl sm:text-7xl md:text-9xl', colorClass: 'text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-fuchsia-300 to-purple-500 drop-shadow-[0_20px_50px_rgba(168,85,247,0.8)]' },
+            { text: 'LOQUITA', duration: 1800, animClass: 'countdown-zoom-anim-word', sizeClass: 'text-5xl sm:text-7xl md:text-9xl', colorClass: 'text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-fuchsia-300 to-purple-500 drop-shadow-[0_20px_50px_rgba(168,85,247,0.8)]' },
+            { text: 'HERMOSA', duration: 1800, animClass: 'countdown-zoom-anim-word', sizeClass: 'text-5xl sm:text-7xl md:text-9xl', colorClass: 'text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-fuchsia-300 to-purple-500 drop-shadow-[0_20px_50px_rgba(168,85,247,0.8)]' }
+        ];
+        let currentIdx = 0;
+
+        function startCountdownSequence() {
+            if (isMuted) {
+                isMuted = false;
+                document.getElementById('musicIcon').className = 'fa-solid fa-volume-high text-lg';
+            }
+            const iframe = document.getElementById('youtubePlayer');
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'unMute', args: '' }), '*');
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: '' }), '*');
+
+            const mainContainer = document.getElementById('mainContainer');
+            const sequenceScreen = document.getElementById('sequenceScreen');
+            const sequenceText = document.getElementById('sequenceText');
+
+            document.getElementById('buntingGarland').classList.remove('hidden');
+
+            mainContainer.style.opacity = '0';
+            mainContainer.style.transition = 'opacity 0.4s ease';
+
+            setTimeout(() => {
+                mainContainer.classList.add('hidden');
+                sequenceScreen.classList.remove('hidden');
+
+                function runNextSequenceItem() {
+                    if (currentIdx < sequenceItems.length) {
+                        const item = sequenceItems[currentIdx];
+                        
+                        sequenceText.style.animation = 'none';
+                        sequenceText.offsetHeight;
+                        sequenceText.className = 'font-title font-black px-2 leading-none text-center ' + item.animClass + ' ' + item.colorClass + ' ' + item.sizeClass;
+                        sequenceText.innerText = item.text;
+                        sequenceText.style.animation = '';
+
+                        if (currentIdx < 5) {
+                            triggerMiniConfetti();
+                        }
+
+                        const currentDuration = item.duration;
+                        currentIdx++;
+                        setTimeout(runNextSequenceItem, currentDuration);
+                    } else {
+                        setTimeout(() => {
+                            sequenceScreen.style.opacity = '0';
+                            sequenceScreen.style.transition = 'opacity 0.5s ease';
+                            setTimeout(() => {
+                                sequenceScreen.classList.add('hidden');
+                                const panelsWrapper = document.getElementById('panelsWrapper');
+                                panelsWrapper.classList.remove('hidden');
+                                
+                                const p1 = document.getElementById('panel-1');
+                                p1.classList.remove('hidden');
+                                p1.classList.add('panel-zoom-in');
+
+                                initPanelLoader(1);
+                            }, 500);
+                        }, 1200);
+                    }
+                }
+
+                runNextSequenceItem();
+
+            }, 400);
+        }
+
+        function initPanelLoader(panelNum) {
+            const currentPanel = document.getElementById(`panel-${panelNum}`);
+            const loaderWrapper = currentPanel.querySelector('.panel-loader-wrapper');
+            const progressBarContainer = loaderWrapper.querySelector('.w-3\\/4');
+            const nextBtn = currentPanel.querySelector('.panel-next-btn');
+
+            progressBarContainer.classList.remove('hidden');
+            nextBtn.classList.add('hidden');
+
+            const oldBar = progressBarContainer.querySelector('div');
+            if (oldBar) {
+                oldBar.remove();
+            }
+            const newBar = document.createElement('div');
+            newBar.className = 'wifi-loader-3s bg-gradient-to-r from-pink-500 to-rose-400 h-full rounded-full';
+            progressBarContainer.appendChild(newBar);
+
+            setTimeout(() => {
+                newBar.style.opacity = '0';
+                setTimeout(() => {
+                    progressBarContainer.classList.add('hidden');
+                    nextBtn.classList.remove('hidden');
+                    nextBtn.classList.add('pop-in');
+                }, 300);
+            }, 3000);
+        }
+
+        function nextPanel(panelNum) {
+            if (isMuted) {
+                isMuted = false;
+                document.getElementById('musicIcon').className = 'fa-solid fa-volume-high text-lg';
+            }
+            const iframe = document.getElementById('youtubePlayer');
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'unMute', args: '' }), '*');
+            iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: '' }), '*');
+
+            const prevNum = panelNum === 5 ? 4 : panelNum - 1;
+            const prevPanel = document.getElementById(`panel-${prevNum}`);
+            
+            prevPanel.classList.remove('panel-zoom-in');
+            prevPanel.classList.add('panel-zoom-out');
+
+            setTimeout(() => {
+                prevPanel.classList.add('hidden');
+                prevPanel.classList.remove('panel-zoom-out');
+                
+                const currentPanel = document.getElementById(`panel-${panelNum}`);
+                currentPanel.classList.remove('hidden');
+                currentPanel.classList.add('panel-zoom-in');
+
+                if (panelNum <= 4) {
+                    initPanelLoader(panelNum);
+                } else if (panelNum === 5) {
+                    triggerTopRain2Seconds();
+
+                    setTimeout(() => {
+                        const finalTitle = document.getElementById('finalTitle');
+                        finalTitle.classList.add('animate-bounce-in');
+                    }, 250);
+
+                    setTimeout(() => {
+                        const finalEmojis = document.getElementById('finalEmojis');
+                        finalEmojis.classList.add('animate-bounce-in');
+                    }, 750);
+
+                    setTimeout(() => {
+                        const finalPoem = document.getElementById('finalPoem');
+                        finalPoem.classList.add('animate-bounce-in');
+                    }, 1250);
+
+                    setTimeout(() => {
+                        const replayContainer = document.getElementById('replayContainer');
+                        replayContainer.classList.remove('hidden');
+                        replayContainer.classList.add('pop-in');
+                    }, 3800);
+                }
+            }, 300);
+        }
+
+        function resetExperience() {
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>
